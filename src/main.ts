@@ -1,5 +1,9 @@
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+// Author: Mauricio Ramos da Silva ALencar
+// Date: 2024-06-10
+// Description: A simple snake game implemented using PixiJS and TypeScript.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 import { Application, Container, Graphics } from "pixi.js";
-import { Sound } from "@pixi/sound";
 enum Direction {
   Up,
   Down,
@@ -55,7 +59,6 @@ type Snake = {
   const snakeHead = new Graphics().rect(0, 0, gridSize, gridSize).beginFill("green").endFill(); // Creates a green square to represent the snake head
   const appleIcon = new Graphics().rect(0, 0, gridSize, gridSize).fill("red");; // Creates a red square to represent the apple
   const snakeContainer = new Container(); // Container to hold body parts of the snake, which will be updated as the snake eats apples
-  const eatSound = await Sound.from({ url: "assets/eat.mp3" });
 
   app.stage.addChild(snakeHead); // Adds snake head to the screen
   app.stage.addChild(appleIcon); // Adds apple to the screen
@@ -65,7 +68,6 @@ type Snake = {
   // Listen for animate update
   app.ticker.add(() => {
     if (snake.head.x === apple.x && snake.head.y === apple.y) { // If the snake head is on the same position as the apple...  
-      eatSound.play(); // a sound is played whenever the snake eats an apple
       apple.x = Math.floor(Math.random() * (app.screen.width / gridSize)) * gridSize; //... the apple is moved to a random position on the X axis...
       apple.y = Math.floor(Math.random() * (app.screen.height / gridSize)) * gridSize; //... and on the Y axis
       snake.body.push({ x: snake.head.x, y: snake.head.y }); //... and the snake grows by adding a new body part at the position of the head
